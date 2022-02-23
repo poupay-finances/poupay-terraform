@@ -1,6 +1,6 @@
 resource "aws_instance" "server_project" {
     ami = var.amiHASH
-    key_name = var.keyName
+    key_name = var.projectName
     instance_type = var.instanceTypeMicro
     subnet_id = aws_subnet.public_subnet_project.id
 
@@ -9,7 +9,7 @@ resource "aws_instance" "server_project" {
         aws_security_group.ssh.id,
         aws_default_security_group.default.id
     ]
-    user_data = file("configuracoes/configure.sh")
+    user_data = file("configurations/configure-jupyter.sh")
     tags = {
         Name = format("server-%s", var.projectName)
     }
