@@ -1,18 +1,18 @@
 # VPC
-resource "aws_vpc" "vpc_osiris" {
+resource "aws_vpc" "vpc_project" {
     cidr_block           = var.vpcCIDRblock
     instance_tenancy     = var.instanceTenancy 
     enable_dns_support   = var.dnsSupport 
     enable_dns_hostnames = var.dnsHostNames
 
     tags = {
-        Name = "vpc-osiris"
+        Name = format("vpc-%s", var.projectName)
     }
 } 
 
 # Subnet
-resource "aws_subnet" "public_subnet" {
-    vpc_id                  = aws_vpc.vpc_osiris.id
+resource "aws_subnet" "public_subnet_project" {
+    vpc_id                  = aws_vpc.vpc_project.id
     cidr_block              = var.publicsCIDRblock
     map_public_ip_on_launch = var.mapPublicIP 
     availability_zone       = var.availabilityZone
@@ -23,32 +23,32 @@ resource "aws_subnet" "public_subnet" {
 }
 
 # Internet Gateway
-resource "aws_internet_gateway" "igw_osiris" {
-    vpc_id = aws_vpc.vpc_osiris.id
+resource "aws_internet_gateway" "igw_project" {
+    vpc_id = aws_vpc.vpc_project.id
     tags = {
-        Name = "internet-gateway-osiris"
+        Name = format("internet-gateway-%s", var.projectName)
     }
 }
 
 # Route Table
-resource "aws_route_table" "rtb_osiris" {
-    vpc_id = aws_vpc.vpc_osiris.id
+resource "aws_route_table" "rtb_project" {
+    vpc_id = aws_vpc.vpc_project.id
     tags = {
-        Name = "route-table-osiris"
+        Name = format("route-table-%s", var.projectName)
     }
 }
 
 # Rota para o Internet Gateway
 resource "aws_route" "internet_access" {
-    route_table_id         = aws_route_table.rtb_osiris.id
+    route_table_id         = aws_route_table.rtb_project.id
     destination_cidr_block = var.publicdestCIDRblock
-    gateway_id             = aws_internet_gateway.igw_osiris.id
+    gateway_id             = aws_internet_gateway.igw_project.id
 }
 
 # Associação da Route Table à subnet pública
 resource "aws_route_table_association" "public_association" {
-    subnet_id      = aws_subnet.public_subnet_osiris.id
-    route_table_id = aws_route_table.rtb_osiris.id
+    subnet_id      = aws_subnet.public_subnet_project.id
+    route_table_id = aws_route_table.rtb_project.id
 }
 
 # Security Group
@@ -56,7 +56,7 @@ resource "aws_security_group" "ssh" {
     name = "ssh"
     description = "SSH"
 
-    vpc_id = aws_vpc.vpc_osiris.id
+    vpc_id = aws_vpc.vpc_project.id
 
     ingress = [
         {
@@ -81,7 +81,7 @@ resource "aws_security_group" "http-https" {
     name = "http-https"
     description = "aplicacao"
 
-    vpc_id = aws_vpc.vpc_osiris.id
+    vpc_id = aws_vpc.vpc_project.id
 
     ingress = [
         {
@@ -117,7 +117,7 @@ resource "aws_security_group" "database" {
     name = "database"
     description = "banco"
 
-    vpc_id = aws_vpc.vpc_osiris.id
+    vpc_id = aws_vpc.vpc_project.id
 
     ingress = [
         {
@@ -142,7 +142,7 @@ resource "aws_default_security_group" "default" {
     # name = "default"
     # description = "default"
 
-    vpc_id = aws_vpc.vpc_osiris.id
+    vpc_id = aws_vpc.vpc_project.id
 
     ingress = [
         {
@@ -173,6 +173,6 @@ resource "aws_default_security_group" "default" {
     ]
 
     tags = {
-        Name = "database"
+        Name = "default"
     }
 }

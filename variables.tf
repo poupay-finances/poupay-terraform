@@ -61,6 +61,6 @@ variable "instanceTypeSmall" {
 }
 
 #Variável do nome principal do projeto
-variable "keyName" {
+variable "projectName" {
     default = "poupay-finances"
 }

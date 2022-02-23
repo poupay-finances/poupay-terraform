@@ -1,8 +1,8 @@
-resource "aws_instance" "server" {
+resource "aws_instance" "server_project" {
     ami = var.amiHASH
     key_name = var.keyName
     instance_type = var.instanceTypeMicro
-    subnet_id = aws_subnet.public_subnet_osiris.id
+    subnet_id = aws_subnet.public_subnet_project.id
 
     vpc_security_group_ids = [
         aws_security_group.http-https.id,
@@ -11,15 +11,15 @@ resource "aws_instance" "server" {
     ]
     user_data = file("configuracoes/configure.sh")
     tags = {
-        Name = "web-server"
+        Name = format("server-%s", var.projectName)
     }
 }
 
-resource "aws_eip" "server" {
-    instance = aws_instance.web_server.id
+resource "aws_eip" "server_eip_project" {
+    instance = aws_instance.server_project.id
     vpc = true
 
     tags = {
-        Name = "web-server"
+        Name = format("server-eip-%s", var.projectName)
     }
 }
