@@ -113,6 +113,31 @@ resource "aws_security_group" "http-https" {
     }
 }
 
+resource "aws_security_group" "rdp" {
+    name = "rdp"
+    description = "Interface gráfica"
+
+    vpc_id = aws_vpc.vpc_project.id
+
+    ingress = [
+        {
+            description = "rdp"
+            from_port = 3389
+            to_port = 3389
+            protocol = "tcp"
+            cidr_blocks = var.sgCidrBlocks
+            ipv6_cidr_blocks = var.sgIPV6CidrBlocks
+            prefix_list_ids = []
+            security_groups = []
+            self = false 
+        }
+    ]
+    
+    tags = {
+        Name = "rdp"
+    }
+}
+
 resource "aws_security_group" "database" {
     name = "database"
     description = "banco"
