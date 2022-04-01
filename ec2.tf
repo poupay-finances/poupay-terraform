@@ -9,7 +9,7 @@ resource "aws_instance" "server_project" {
         aws_security_group.rdp.id,
         aws_default_security_group.default.id
     ]
-    user_data = file("configurations/configure-jupyter.sh")
+    user_data = file("configurations/create-user.sh")
     tags = {
         Name = format("server-%s", var.projectName)
     }
