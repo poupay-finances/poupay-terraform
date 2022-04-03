@@ -1,6 +1,13 @@
 image:
   name: hashicorp/terraform:1.1.7
 
+stages:
+  - init
+  - validate
+  - plan
+  - apply
+  - destroy
+
 variables:
   TF_ROOT: ${CI_PROJECT_DIR}
   TF_STATE_NAME: ${TF_STATE_NAME:-default}
