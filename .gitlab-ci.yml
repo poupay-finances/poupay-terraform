@@ -1,0 +1,54 @@
+image:
+  name: hashicorp/terraform:1.1.7
+
+variables:
+  TF_ROOT: ${CI_PROJECT_DIR}
+  TF_STATE_NAME: ${TF_STATE_NAME:-default}
+
+cache:
+  key: "${TF_ROOT}"
+  paths:
+    - ${TF_ROOT}/.terraform/
+
+init:
+  stage: init
+  script:
+    - cd ${TF_ROOT}
+    - terraform init
+
+validate:
+  stage: validate
+  script:
+    - cd ${TF_ROOT}
+  allow_failure: false
+
+plan:
+  stage: plan
+  script:
+    - cd ${TF_ROOT}
+    - terraform plan
+    - terraform plan-json
+  resource_group: ${TF_STATE_NAME}
+  artifacts:
+    paths:
+      - ${TF_ROOT}/plan.cache
+    reports:
+      terraform: ${TF_ROOT}/plan.json
+
+apply:
+  stage: apply
+  script:
+    - cd ${TF_ROOT}
+    - terraform apply
+  resource_group: ${TF_STATE_NAME}
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
+
+destroy:
+  stage: destroy
+  script:
+    - cd ${TF_ROOT}
+    - terraform destroy
+  resource_group: ${TF_STATE_NAME}
+  when: manual
