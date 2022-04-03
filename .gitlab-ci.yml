@@ -15,10 +15,17 @@ variables:
   TF_ROOT: ${CI_PROJECT_DIR}
   TF_STATE_NAME: ${TF_STATE_NAME:-default}
 
-before_script:
-  - rm -rf .terraform
-  - terraform --version
-  - terraform init
+cache:
+  key: "${TF_ROOT}"
+  paths:
+    - ${TF_ROOT}/.terraform/
+
+init:
+  stage: init
+  script:
+    - rm -rf .terraform
+    - terraform --version
+    - terraform init
 
 validate:
   stage: validate
