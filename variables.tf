@@ -16,7 +16,7 @@ variable "dnsHostNames" {
     default = true
 }
 variable "vpcCIDRblock" {
-    default = "10.0.0.0/23"
+    default = "172.16.5.0/24"
 }
 variable "mapPublicIP" {
     default = true
@@ -24,10 +24,10 @@ variable "mapPublicIP" {
 
 # Subnets
 variable "publicsCIDRblock" {
-    default = "10.0.0.0/24"
+    default = "172.16.5.0/26"
 }
 variable "privatesCIDRblock" {
-    default = "10.0.1.0/24"
+    default = "172.16.5.0/26"
 }
 
 # Rota para o Internet Gateway
@@ -35,7 +35,7 @@ variable "publicdestCIDRblock" {
     default = "0.0.0.0/0"
 }
 variable "localdestCIDRblock" {
-    default = "10.0.0.0/23"
+    default = "172.16.5.0/24"
 }
 
 # Security Group
