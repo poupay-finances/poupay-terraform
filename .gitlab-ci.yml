@@ -21,7 +21,7 @@ variables:
 cache:
   key: "${TF_ROOT}"
   paths:
-    - ${TF_ROOT}/.terraform/
+    - ${TF_ROOT}
 
 init:
   stage: init
