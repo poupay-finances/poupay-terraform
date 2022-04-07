@@ -10,6 +10,9 @@ image:
   entrypoint:
     - '/usr/bin/env'
     - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    - 'AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}'
+    - 'AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}'
+    - 'AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}'
 
 variables:
   TF_ROOT: ${CI_PROJECT_DIR}
