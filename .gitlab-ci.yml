@@ -57,6 +57,6 @@ destroy:
   stage: destroy
   script:
     - cd ${TF_ROOT}
-    - terraform destroy
+    - terraform destroy -y
   resource_group: ${TF_STATE_NAME}
   when: manual
