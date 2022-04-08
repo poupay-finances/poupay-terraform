@@ -45,6 +45,11 @@ resource "aws_route" "internet_access" {
     gateway_id             = aws_internet_gateway.igw_project.id
 }
 
+# resource "aws_route_table_association" "a" {
+#   subnet_id      = aws_subnet.foo.id
+#   route_table_id = aws_route_table.bar.id
+# }
+
 # Associação da Route Table à subnet pública
 resource "aws_route_table_association" "public_association" {
     subnet_id      = aws_subnet.public_subnet_project.id
@@ -115,7 +120,7 @@ resource "aws_security_group" "http-https" {
 
 resource "aws_security_group" "rdp" {
     name = "rdp"
-    description = "Interface gráfica"
+    description = "RDP"
 
     vpc_id = aws_vpc.vpc_project.id
 
