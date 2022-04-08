@@ -21,7 +21,9 @@ variables:
 cache:
   key: "${TF_ROOT}"
   paths:
-    - ${TF_ROOT}
+    - ${TF_ROOT}/.terraform/
+    - ${TF_ROOT}/.terraform.lock.hcl
+    - ${TF_ROOT}/planfile
 
 init:
   stage: init
@@ -48,7 +50,7 @@ plan:
 apply:
   stage: apply
   script:
-    - terraform apply -input=false "planfile"
+    - terraform apply -auto-approve "planfile"
   dependencies:
     - plan
   when: manual
@@ -57,6 +59,6 @@ destroy:
   stage: destroy
   script:
     - cd ${TF_ROOT}
-    - terraform destroy -y
+    - terraform apply -auto-approve -destroy
   resource_group: ${TF_STATE_NAME}
   when: manual
