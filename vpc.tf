@@ -40,7 +40,7 @@ resource "aws_route_table" "rtb_project" {
 
 # Rota para o Internet Gateway
 resource "aws_route_table_association" "internet_access" {
-  subnet_id      = aws_internet_gateway.igw_project.id
+  gateway_id      = aws_internet_gateway.igw_project.id
   route_table_id = aws_route_table.rtb_project.id
 }
 # resource "aws_route" "internet_access" {
