@@ -59,6 +59,6 @@ destroy:
   stage: destroy
   script:
     - cd ${TF_ROOT}
-    - terraform apply -auto-approve -destroy
+    - terraform apply -auto-approve -destroy "planfile"
   resource_group: ${TF_STATE_NAME}
   when: manual
