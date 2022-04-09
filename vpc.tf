@@ -39,15 +39,14 @@ resource "aws_route_table" "rtb_project" {
 }
 
 # Rota para o Internet Gateway
-resource "aws_route" "internet_access" {
-    route_table_id         = aws_route_table.rtb_project.id
-    destination_cidr_block = var.publicdestCIDRblock
-    gateway_id             = aws_internet_gateway.igw_project.id
+resource "aws_route_table_association" "internet_access" {
+  subnet_id      = aws_internet_gateway.igw_project.id
+  route_table_id = aws_route_table.rtb_project.id
 }
-
-# resource "aws_route_table_association" "a" {
-#   subnet_id      = aws_subnet.foo.id
-#   route_table_id = aws_route_table.bar.id
+# resource "aws_route" "internet_access" {
+#     route_table_id         = aws_route_table.rtb_project.id
+#     destination_cidr_block = var.publicdestCIDRblock
+#     gateway_id             = aws_internet_gateway.igw_project.id
 # }
 
 # Associação da Route Table à subnet pública
