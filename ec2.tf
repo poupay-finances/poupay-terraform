@@ -4,7 +4,7 @@ resource "aws_instance" "server_project" {
     instance_type = var.instanceTypeMicro
     subnet_id = aws_subnet.public_subnet_project.id
     # associate_public_ip_address = true
-
+ 
     vpc_security_group_ids = [
         aws_security_group.ssh.id,
         aws_security_group.database.id,
