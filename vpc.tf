@@ -39,15 +39,11 @@ resource "aws_route_table" "rtb_project" {
 }
 
 # Rota para o Internet Gateway
-resource "aws_route_table_association" "internet_access" {
-  gateway_id      = aws_internet_gateway.igw_project.id
-  route_table_id = aws_route_table.rtb_project.id
+resource "aws_route" "internet_access" {
+    route_table_id         = aws_route_table.rtb_project.id
+    destination_cidr_block = var.publicdestCIDRblock
+    gateway_id             = aws_internet_gateway.igw_project.id
 }
-# resource "aws_route" "internet_access" {
-#     route_table_id         = aws_route_table.rtb_project.id
-#     destination_cidr_block = var.publicdestCIDRblock
-#     gateway_id             = aws_internet_gateway.igw_project.id
-# }
 
 # Associação da Route Table à subnet pública
 resource "aws_route_table_association" "public_association" {
@@ -78,6 +74,31 @@ resource "aws_security_group" "ssh" {
 
     tags = {
         Name = "ssh"
+    }
+}
+
+resource "aws_security_group" "jupyter" {
+    name = "jupyter"
+    description = "jupyter"
+
+    vpc_id = aws_vpc.vpc_project.id
+
+    ingress = [
+        {
+            description = "jupyter"
+            from_port = 8090
+            to_port = 8090
+            protocol = "tcp"
+            cidr_blocks = var.sgCidrBlocks
+            ipv6_cidr_blocks = var.sgIPV6CidrBlocks
+            prefix_list_ids = []
+            security_groups = []
+            self = false 
+        }
+    ]
+
+    tags = {
+        Name = "jupyter"
     }
 }
 
