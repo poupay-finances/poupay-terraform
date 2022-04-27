@@ -14,9 +14,9 @@ on:
         required: true
 
 env:
-  AWS_ACCESS_KEY_ID: ${{  }}
-  AWS_SECRET_ACCESS_KEY: ${{  }}
-  AWS_SESSION_TOKEN: ${{  }}
+  AWS_ACCESS_KEY_ID: ${{ github.event.inputs.aws_access_key_id }}
+  AWS_SECRET_ACCESS_KEY: ${{ github.event.inputs.aws_secret_access_key }}
+  AWS_SESSION_TOKEN: ${{ github.event.inputs.aws_session_token }}
 
 jobs:
   terraform:
