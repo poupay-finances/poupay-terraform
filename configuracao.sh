@@ -19,10 +19,12 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 
 sudo chmod +x /usr/local/bin/docker-compose
 
+# Install python code
 git config --global user.name "poupay-bot"
 git config --global user.email "poupay-bot"
 
 git clone https://gitlab.com/poupay/poupay-python.git ./python
 
-#pull image bd
-docker run 
+sudo apt install python3-pip -y
+
+pip3 install -r poupay-python/requirements.txt

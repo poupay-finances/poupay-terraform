@@ -49,7 +49,7 @@ variable "sgIPV6CidrBlocks" {
 
 # Instâncias EC2
 variable "amiHASH" {
-    default = "ami-083654bd07b5da81d"
+    default = "ami-04505e74c0741db8d"
 }
 
 variable "instanceTypeMicro" {
