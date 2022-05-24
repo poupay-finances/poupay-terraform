@@ -23,10 +23,7 @@ variable "mapPublicIP" {
 }
 
 # Subnets
-variable "publicsCIDRblock" {
-    default = "172.16.5.0/26"
-}
-variable "privatesCIDRblock" {
+variable "subnetsCIDRblock" {
     default = "172.16.5.0/26"
 }
 
