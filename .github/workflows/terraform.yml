@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       aws_access_key_id:
-        description: Primeira credencial de acesso
+        description: aws_access_key_id
         required: true
       aws_secret_access_key:
-        description: Segunda credencial de acesso
+        description: aws_secret_access_key
         required: true
       aws_session_token:
-        description: Terceira credencial de acesso
+        description: aws_session_token
         required: true
 
 env:
@@ -38,5 +38,5 @@ jobs:
         run: terraform plan -input=false
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve -input=false
+        # if: github.ref == 'refs/heads/main'
+        run: terraform apply -auto-approve
