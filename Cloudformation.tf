@@ -6,7 +6,7 @@ resource "aws_cloudformation_stack" "project-cloudformation" {
     "VpcPublicSubnetCidr" = "${var.subnetsCIDRblock}",
     "VpcPublicSubnetZone" = "${var.availabilityZone}"
     "Ec2KeyPairName" = "${var.projectName}"
-    "Ec2JupyterPassword" = "${jupyterPassword}"
+    "Ec2JupyterPassword" = "urubu100"
   }
 
   template_body = file("cloudformation/poupay-cloudformation.yaml")

@@ -2,7 +2,7 @@ terraform {
 
     backend "s3" {
         bucket = "kaio-baleeiro-tfstate"
-        key = "terraform.tfstate"
+        key = "kaio-baleeiro-terraform.tfstate"
         region = "us-east-1"
     }
 
