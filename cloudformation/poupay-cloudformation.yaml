@@ -85,7 +85,7 @@ Resources:
     Description: "Creating Amazon S3 bucket from CloudFormation"
     Properties:
       AccessControl: Private
-      BucketName: !Sub ${AWS::StackName}-${Client}-bucket-desestruturado
+      BucketName: !Sub ${AWS::StackName}-${Client}-brutos
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         BlockPublicPolicy: true
@@ -96,7 +96,7 @@ Resources:
     Description: "Creating Amazon S3 bucket from CloudFormation"
     Properties:
       AccessControl: Private
-      BucketName: !Sub ${AWS::StackName}-${Client}-bucket-semi-estruturados
+      BucketName: !Sub ${AWS::StackName}-${Client}-tratados
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         BlockPublicPolicy: true
@@ -107,7 +107,7 @@ Resources:
     Description: "Creating Amazon S3 bucket from CloudFormation"
     Properties:
       AccessControl: Private
-      BucketName: !Sub ${AWS::StackName}-${Client}-bucket-estruturados
+      BucketName: !Sub ${AWS::StackName}-${Client}-cliente
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         BlockPublicPolicy: true
