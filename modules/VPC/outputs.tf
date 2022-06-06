@@ -12,5 +12,5 @@ output "default_sg" {
 }
 output "id_subnet" {
   description = "ID da Subnet"
-  value = aws_subnet.subnet_project.id
+  value       = aws_subnet.subnet_project.id
 }

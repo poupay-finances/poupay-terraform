@@ -4,7 +4,7 @@ resource "aws_s3_bucket" "bucket_project" {
 
 resource "aws_s3_bucket_acl" "bucket_acl_project" {
   bucket = aws_s3_bucket.bucket_project.id
-  acl = "private"
+  acl    = "private"
 }
 
 resource "aws_s3_bucket_public_access_block" "bucket_pab_project" {

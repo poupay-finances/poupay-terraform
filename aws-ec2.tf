@@ -21,6 +21,6 @@ resource "aws_instance" "server_project" {
 data "template_file" "jupyter_script" {
   template = file("configuracao.sh")
   vars = {
-    "jupyter_pass" = "urubu100"
+    jupyter_pass = var.JUPYTER_PASS
   }
 }

@@ -4,39 +4,95 @@ on:
   workflow_dispatch:
     inputs:
       aws_access_key_id:
-        description: Primeira credencial de acesso
+        description: AWS - Access Key
         required: true
       aws_secret_access_key:
-        description: Segunda credencial de acesso
+        description: AWS - Secret Access Key
         required: true
       aws_session_token:
-        description: Terceira credencial de acesso
+        description: AWS - Session Token
         required: true
 
 env:
   AWS_ACCESS_KEY_ID: ${{ github.event.inputs.aws_access_key_id }}
   AWS_SECRET_ACCESS_KEY: ${{ github.event.inputs.aws_secret_access_key }}
   AWS_SESSION_TOKEN: ${{ github.event.inputs.aws_session_token }}
+  AUTOR: ${{ GITHUB_ACTOR }}
+
+defaults:
+  run:
+    shell: bash
 
 jobs:
   terraform:
-    name: 'Terraform'
+    name: "Terraform"
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        shell: bash
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Terraform Init
+      # Utilizar credenciais do Anderson Sartório
+      - uses: azure/login@v1
+        if: ${{ 'anderson-sartorio' == GITHUB_ACTOR }}
+        with:
+          creds: ${{ secrets.AZURE_ANDERSON_CREDENTIALS }}
+
+      # Utilizar credenciais do César Almeida
+      - uses: azure/login@v1
+        if: ${{ 'Cesar-Almeida' == GITHUB_ACTOR }}
+        with:
+          creds: ${{ secrets.AZURE_CESAR_CREDENTIALS }}
+
+      # Utilizar credenciais do Daniel Zacarias
+      - uses: azure/login@v1
+        if: ${{ 'daniel-zacarias' == GITHUB_ACTOR }}
+        with:
+          creds: ${{ secrets.AZURE_DANIEL_CREDENTIALS }}
+
+      # Utilizar credenciais do Douglas Dourado
+      - uses: azure/login@v1
+        if: ${{ 'DouglasNova' == GITHUB_ACTOR }}
+        with:
+          creds: ${{ secrets.AZURE_DOUGLAS_CREDENTIALS }}
+
+      # Utilizar credenciais do Kaio Baleeiro
+      - uses: azure/login@v1
+        if: ${{ 'kaio-baleeiro' == GITHUB_ACTOR }}
+        with:
+          creds: ${{ secrets.AZURE_KAIO_CREDENTIALS }}
+
+      # Utilizar credenciais do Mario Heleno
+      - uses: azure/login@v1
+        if: ${{ 'MarioHeleno' == GITHUB_ACTOR }}
+        with:
+          creds: ${{ secrets.AZURE_MARIO_CREDENTIALS }}
+
+      - name: Change Terraform Backend
+        run: |
+          sed -i "s/bucket.*/bucket = \"${{ env.AUTOR }}-tfstate\"/" main.tf
+          sed -i "s/key.*/key = \"${{ env.AUTOR }}.tfstate\"/" main.tf
+
+      - name: Terraform fmt
+        run: terraform fmt -diff -recursive -check
+
+      - name: Terraform init
         run: terraform init
 
-      - name: Terraform Plan
-        run: terraform plan -input=false
+      - name: Terraform validate
+        run: terraform validate -json
 
-      - name: Terraform Apply
+      - name: Terraform plan
+        run: terraform plan -input=false -var="JUPYTER_PASS=${{ secrets.JUPYTER_PASS }}" -var="AZURE_SERVER_DATABASE_USER=${{ secrets.AZURE_SERVER_DATABASE_USER }}" -var="AZURE_SERVER_DATABASE_PASSWORD=${{ secrets.AZURE_SERVER_DATABASE_PASSWORD }}"
+
+      - name: Terraform apply
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve -input=false
+
+      - name: Azure CLI script
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az logout
+            az cache purge
+            az account clear

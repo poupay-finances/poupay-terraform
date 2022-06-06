@@ -16,8 +16,8 @@ resource "azurerm_mssql_server" "server_database" {
   resource_group_name          = azurerm_resource_group.rg_database.name
   location                     = var.azRegion
   version                      = "12.0"
-  administrator_login          = "urubu100"
-  administrator_login_password = "Urubu1@@"
+  administrator_login          = var.AZURE_SERVER_DATABASE_USER
+  administrator_login_password = var.AZURE_SERVER_DATABASE_PASSWORD
 }
 
 resource "azurerm_mssql_database" "mssql_database" {
