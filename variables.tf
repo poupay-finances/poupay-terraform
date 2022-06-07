@@ -1,66 +1,53 @@
-variable "region" {
-     default = "us-east-1"
+# Regions
+variable "awsRegion" {
+  default = "us-east-1"
 }
+
+variable "azRegion" {
+  default = "eastus"
+}
+
 variable "availabilityZone" {
-     default = "us-east-1a"
-}
-
-# VPC
-variable "instanceTenancy" {
-    default = "default"
-}
-variable "dnsSupport" {
-    default = true
-}
-variable "dnsHostNames" {
-    default = true
-}
-variable "vpcCIDRblock" {
-    default = "172.16.5.0/24"
-}
-variable "mapPublicIP" {
-    default = true
-}
-
-# Subnets
-variable "publicsCIDRblock" {
-    default = "172.16.5.0/26"
-}
-variable "privatesCIDRblock" {
-    default = "172.16.5.0/26"
-}
-
-# Rota para o Internet Gateway
-variable "publicdestCIDRblock" {
-    default = "0.0.0.0/0"
-}
-variable "localdestCIDRblock" {
-    default = "172.16.5.0/24"
-}
-
-# Security Group
-variable "sgCidrBlocks" {
-    default = ["0.0.0.0/0"]
-}
-
-variable "sgIPV6CidrBlocks" {
-    default = ["::/0"]
+  default = "us-east-1a"
 }
 
 # Instâncias EC2
 variable "amiHASH" {
-    default = "ami-04505e74c0741db8d"
+  description = "Hash da ami da instância que será criada"
+  default     = "ami-0f9fc25dd2506cf6d"
 }
 
-variable "instanceTypeMicro" {
-    default = "t2.micro"
+variable "instanceKey" {
+  type        = string
+  description = "Chave a ser utilizada nas instâncias"
+  default     = "poupay-finances"
 }
 
-variable "instanceTypeSmall" {
-    default = "t2.small"
-}
-
-#Variável do nome principal do projeto
 variable "projectName" {
-    default = "poupay-finances"
+  type        = string
+  description = "Variável do nome do projeto"
+  default     = "poupay"
+}
+
+variable "AUTOR" {
+  type        = string
+  description = "Autor"
+}
+
+variable "JUPYTER_PASS" {
+  type        = string
+  sensitive   = true
+  description = "Variável da senha do jupyter"
+}
+
+variable "AZURE_SERVER_DATABASE_USER" {
+  type        = string
+  sensitive   = true
+  description = "Variável do usuario do servidor do banco de dados na azure"
+}
+
+variable "AZURE_SERVER_DATABASE_PASSWORD" {
+  type        = string
+  sensitive   = true
+  description = "Variável da senha do servidor do banco de dados na azure"
 }
