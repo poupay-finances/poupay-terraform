@@ -17,7 +17,7 @@ env:
   AWS_ACCESS_KEY_ID: ${{ github.event.inputs.aws_access_key_id }}
   AWS_SECRET_ACCESS_KEY: ${{ github.event.inputs.aws_secret_access_key }}
   AWS_SESSION_TOKEN: ${{ github.event.inputs.aws_session_token }}
-  AUTOR: ${{ GITHUB_ACTOR }}
+  AUTOR: ${{ github.actor }}
 
 defaults:
   run:
@@ -34,37 +34,37 @@ jobs:
 
       # Utilizar credenciais do Anderson Sartório
       - uses: azure/login@v1
-        if: ${{ 'anderson-sartorio' == GITHUB_ACTOR }}
+        if: ${{ 'anderson-sartorio' == env.AUTOR }}
         with:
           creds: ${{ secrets.AZURE_ANDERSON_CREDENTIALS }}
 
       # Utilizar credenciais do César Almeida
       - uses: azure/login@v1
-        if: ${{ 'Cesar-Almeida' == GITHUB_ACTOR }}
+        if: ${{ 'Cesar-Almeida' == env.AUTOR }}
         with:
           creds: ${{ secrets.AZURE_CESAR_CREDENTIALS }}
 
       # Utilizar credenciais do Daniel Zacarias
       - uses: azure/login@v1
-        if: ${{ 'daniel-zacarias' == GITHUB_ACTOR }}
+        if: ${{ 'daniel-zacarias' == env.AUTOR }}
         with:
           creds: ${{ secrets.AZURE_DANIEL_CREDENTIALS }}
 
       # Utilizar credenciais do Douglas Dourado
       - uses: azure/login@v1
-        if: ${{ 'DouglasNova' == GITHUB_ACTOR }}
+        if: ${{ 'DouglasNova' == env.AUTOR }}
         with:
           creds: ${{ secrets.AZURE_DOUGLAS_CREDENTIALS }}
 
       # Utilizar credenciais do Kaio Baleeiro
       - uses: azure/login@v1
-        if: ${{ 'kaio-baleeiro' == GITHUB_ACTOR }}
+        if: ${{ 'kaio-baleeiro' == env.AUTOR }}
         with:
           creds: ${{ secrets.AZURE_KAIO_CREDENTIALS }}
 
       # Utilizar credenciais do Mario Heleno
       - uses: azure/login@v1
-        if: ${{ 'MarioHeleno' == GITHUB_ACTOR }}
+        if: ${{ 'MarioHeleno' == env.AUTOR }}
         with:
           creds: ${{ secrets.AZURE_MARIO_CREDENTIALS }}
 
