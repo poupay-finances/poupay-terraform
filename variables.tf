@@ -16,4 +16,6 @@ variable "subnetsCIDRblock" {
 }
 
 #Variável do nome principal do projeto
-variable "projectName" {}
+variable "projectName" {
+  default = "poupay-finances-kaio"
+}
