@@ -3,6 +3,9 @@ name: Terraform Workflow
 on:
   workflow_dispatch:
     inputs:
+      projectName:
+        description: Nome do projeto
+        required: true
       aws_access_key_id:
         description: aws_access_key_id
         required: true
@@ -35,7 +38,7 @@ jobs:
         run: terraform init
 
       - name: Terraform Plan
-        run: terraform plan -input=false
+        run: terraform plan -input=false -var 'projectName=${{ github.event.inputs.projectName }}'
 
       - name: Terraform Apply
         # if: github.ref == 'refs/heads/main'
