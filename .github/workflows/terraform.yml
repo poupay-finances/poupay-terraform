@@ -42,4 +42,4 @@ jobs:
 
       - name: Terraform Apply
         # if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -var 'projectName=${{ github.event.inputs.projectName }}'
