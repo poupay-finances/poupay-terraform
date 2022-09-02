@@ -6,6 +6,13 @@ terraform {
     region = "us-east-1"
   }
 
+  # backend "azurerm" {
+  #   resource_group_name  = "lab-kaio"
+  #   storage_account_name = "labkaio"
+  #   container_name       = "kaiobaleeiro-tfstate"
+  #   key                  = "kaio-baleeiro.tfstate"
+  # }
+
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
