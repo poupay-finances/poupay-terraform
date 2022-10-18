@@ -38,16 +38,19 @@ variable "JUPYTER_PASS" {
   type        = string
   sensitive   = true
   description = "Variável da senha do jupyter"
+  default = "urubu100"
 }
 
 variable "AZURE_SERVER_DATABASE_USER" {
   type        = string
   sensitive   = true
   description = "Variável do usuario do servidor do banco de dados na azure"
+  default = "kaio"
 }
 
 variable "AZURE_SERVER_DATABASE_PASSWORD" {
   type        = string
   sensitive   = true
   description = "Variável da senha do servidor do banco de dados na azure"
+  default = "urubu100"
 }
