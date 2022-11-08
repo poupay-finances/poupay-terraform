@@ -20,3 +20,8 @@ variable "bucketName" {
   type        = string
   description = "Nome do bucket"
 }
+
+output "id" {
+  value       = aws_s3_bucket.bucket_project.id
+  description = "Nome do bucket"
+}

@@ -30,13 +30,14 @@ variable "PROJECT_NAME" {
   description = "Nome do projeto"
 }
 
-variable "JUPYTER_PASS" {
-  type        = string
-  description = "Senha do Jupyter"
-}
-
 variable "USER_DATA" {
   type        = string
   description = "Os dados do usuário a serem fornecidos ao iniciar a instância"
+  default     = null
+}
+
+variable "EC2_TAGS" {
+  type        = map(string)
+  description = "Tags da EC2"
   default     = null
 }

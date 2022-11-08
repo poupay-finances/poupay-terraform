@@ -1,3 +1,20 @@
+# Credenciais
+
+variable "AWS_ACCESS_KEY_ID" {
+  type      = string
+  sensitive = true
+}
+
+variable "AWS_SECRET_ACCESS_KEY" {
+  type      = string
+  sensitive = true
+}
+
+variable "AWS_SESSION_TOKEN" {
+  type      = string
+  sensitive = true
+}
+
 # Regions
 variable "AWS_REGION" {
   default = "us-east-1"
@@ -14,14 +31,14 @@ variable "AVAILABILITY_ZONE" {
 # Instâncias EC2
 
 variable "AMI_HASH" {
-  type = string
+  type        = string
   description = "Hash da ami (opcional)"
-  default = null
+  default     = null
 }
 variable "INSTANCE_KEY" {
   type        = string
   description = "Chave a ser utilizada nas instâncias"
-  default     = "poupay-finances"
+  default     = "poupay-finances-kaio"
 }
 
 variable "PROJECT_NAME" {
@@ -33,26 +50,27 @@ variable "PROJECT_NAME" {
 variable "AUTOR" {
   type        = string
   description = "Autor"
-  default = "kaio"
+  default     = "kaio"
 }
 
 variable "JUPYTER_PASS" {
   type        = string
   sensitive   = true
   description = "Variável da senha do jupyter"
-  default = "urubu100"
+  default     = "urubu100"
 }
 
+# Azure
 variable "AZURE_SERVER_DATABASE_USER" {
   type        = string
   sensitive   = true
   description = "Variável do usuario do servidor do banco de dados na azure"
-  default = "kaio"
+  default     = "kaio"
 }
 
 variable "AZURE_SERVER_DATABASE_PASSWORD" {
   type        = string
   sensitive   = true
   description = "Variável da senha do servidor do banco de dados na azure"
-  default = "urubu100"
+  default     = "urubu!00"
 }
