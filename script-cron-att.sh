@@ -1,26 +1,26 @@
 touch /cron-redundancy.sh
 chmod +x /cron-redundancy.sh
 
-echo "#!/bin/bash" > /cron-redundancy.sh
-echo "BUCKETS=$(aws s3 ls | awk '{print $3}')" >> /cron-redundancy.sh
-echo "AZURE_FS=$(ls /mnt)" >> /cron-redundancy.sh
-echo "for bucket in $BUCKETS; do" >> /cron-redundancy.sh
-echo "    for fs in $AZURE_FS; do" >> /cron-redundancy.sh
-echo "        if [ $bucket == $fs ]; then" >> /cron-redundancy.sh
-echo "            FILESBUCKET=$(aws s3 ls $bucket | awk '{print $4}')" >> /cron-redundancy.sh
-echo "            FILESFS=$(ls /mnt/$fs)" >> /cron-redundancy.sh
-echo "            for filebt in $FILESBUCKET; do" >> /cron-redundancy.sh
-echo "                if [[ $FILESFS =~ (' '|^)$filebt(' '|$) ]];" >> /cron-redundancy.sh
-echo "                    then echo 'Arquivo existe no fs!'" >> /cron-redundancy.sh
-echo "                    else aws s3 cp s3://$bucket/$filebt /mnt/$fs/" >> /cron-redundancy.sh
-echo "                fi" >> /cron-redundancy.sh
-echo "            done" >> /cron-redundancy.sh
-echo "            for filefs in $FILESFS; do" >> /cron-redundancy.sh
-echo "                if [[ $FILESBUCKET =~ (' '|^)$filefs(' '|$) ]];" >> /cron-redundancy.sh
-echo "                    then echo 'Arquivo existe no bucket!'" >> /cron-redundancy.sh
-echo "                    else aws s3 cp /mnt/$fs/$filefs s3://$bucket" >> /cron-redundancy.sh
-echo "                fi" >> /cron-redundancy.sh
-echo "            done" >> /cron-redundancy.sh
-echo "        fi" >> /cron-redundancy.sh
-echo "    done" >> /cron-redundancy.sh
-echo "done" >> /cron-redundancy.sh
+#!/bin/bash
+BUCKETS=$(aws s3 ls | awk '{print $3}')
+AZURE_FS=$(ls /mnt)
+for bucket in $BUCKETS; do
+    for fs in $AZURE_FS; do
+        if [ $bucket == $fs ]; then
+            FILESBUCKET=$(aws s3 ls $bucket | awk '{print $4}')
+            FILESFS=$(ls /mnt/$fs)
+            for filebt in $FILESBUCKET; do
+                if [[ $FILESFS =~ (' '|^)$filebt(' '|$) ]];
+                    then echo 'Arquivo existe no fs!'
+                    else aws s3 cp s3://$bucket/$filebt /mnt/$fs/
+                fi
+            done
+            for filefs in $FILESFS; do
+                if [[ $FILESBUCKET =~ (' '|^)$filefs(' '|$) ]];
+                    then echo 'Arquivo existe no bucket!'
+                    else aws s3 cp /mnt/$fs/$filefs s3://$bucket
+                fi
+            done
+        fi
+    done
+done
