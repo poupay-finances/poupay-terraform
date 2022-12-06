@@ -1,29 +1,29 @@
 # VPC
 resource "aws_vpc" "vpc_project" {
-  cidr_block           = var.vpcCIDRblock
+  cidr_block           = var.VPC_CIDR_BLOCK
   enable_dns_hostnames = true
-  tags                 = var.vpcTags
+  tags                 = var.VPC_TAGS
 }
 
 # Subnet
 resource "aws_subnet" "subnet_project" {
   vpc_id                  = aws_vpc.vpc_project.id
   cidr_block              = "172.16.5.0/26"
-  map_public_ip_on_launch = var.mapPublicIP
-  availability_zone       = var.availabilityZone
-  tags                    = var.subnetTags
+  map_public_ip_on_launch = var.MAP_PUBLIC_IP
+  availability_zone       = var.AVAILABILITY_ZONE
+  tags                    = var.SUBNET_TAGS
 }
 
 # Internet Gateway
 resource "aws_internet_gateway" "igw_project" {
   vpc_id = aws_vpc.vpc_project.id
-  tags   = var.igwTags
+  tags   = var.IGW_TAGS
 }
 
 # Route Table
 resource "aws_route_table" "rtb_project" {
   vpc_id = aws_vpc.vpc_project.id
-  tags   = var.rtbTags
+  tags   = var.RTB_TAGS
 }
 
 # Rota para o Internet Gateway
