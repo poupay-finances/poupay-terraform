@@ -1,6 +1,6 @@
 resource "azurerm_mssql_server" "server_database" {
   name                         = format("azsdb-%s", var.PROJECT_NAME)
-  resource_group_name          = azurerm_resource_group.rg_ptoject.name
+  resource_group_name          = azurerm_resource_group.rg_project.name
   location                     = var.AZ_REGION
   version                      = "12.0"
   administrator_login          = var.AZURE_SERVER_DATABASE_USER
